@@ -7,3 +7,6 @@
 [submodule "git"]
 	path = git
 	url = https://github.com/DavidKinder/Git.git
+[submodule "glow"]
+	path = glow
+	url = https://github.com/chromy/glow.git
