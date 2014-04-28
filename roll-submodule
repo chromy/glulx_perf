@@ -1,0 +1,17 @@
+#! /bin/bash
+
+function roll_submodule() {
+    submodule=$1
+    cd $submodule
+    git pull
+    rev=git rev-parse HEAD
+    cd ..
+    git add $submodule
+    git commit -m "rolls $submodule to $rev"
+}
+
+if [ $# -ne 1 ]
+then
+    echo "usage: $0 submodule";
+fi
+roll_submodule $1

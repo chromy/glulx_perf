@@ -1,0 +1,21 @@
+#! /bin/bash
+
+function remote_status() {
+    submodule=$1
+    cd $submodule
+    git fetch
+    number_of_commits=$(git rev-list HEAD...origin/master --count)
+    if [ "$number_of_commits" -eq "0" ]
+    then
+        echo 'same'
+    else
+        echo 'different'
+    fi 
+}
+
+if [ "$#" -ne "1" ]
+then
+    echo "usage: $0 submodule";
+    exit 1
+fi
+remote_status $1

@@ -1,0 +1,22 @@
+#! /bin/bash
+
+echo "pulling changes"
+git pull
+
+function update_implementations {
+    impl=$1
+    echo "updating: $impl"
+    status=$(is-submodule-stale impl)
+    if [ $status = "changed" ]
+    then
+        echo "$impl out of date"
+        roll-submodule $impl
+    else
+        echo "$impl OK"
+    fi
+}
+
+cat implementations | while read $impl; do update_implementations $impl; done
+
+echo "pushing changes"
+git push
