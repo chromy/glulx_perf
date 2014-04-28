@@ -4,7 +4,7 @@ function roll_submodule() {
     submodule=$1
     cd $submodule
     git pull
-    rev=git rev-parse HEAD
+    rev=$(git rev-parse HEAD)
     cd ..
     git add $submodule
     git commit -m "rolls $submodule to $rev"

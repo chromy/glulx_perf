@@ -1,22 +1,22 @@
 #! /bin/bash
 
-echo "pulling changes"
+echo "____pulling changes"
 git pull
 
-function update_implementations {
+function update_implementation {
     impl=$1
-    echo "updating: $impl"
-    status=$(is-submodule-stale impl)
-    if [ $status = "changed" ]
+    echo "____updating: $impl"
+    status=$(./is-submodule-stale $impl)
+    if [ "$status" == "different" ]
     then
-        echo "$impl out of date"
-        roll-submodule $impl
+        echo "____$impl out of date"
+        ./roll-submodule $impl
     else
-        echo "$impl OK"
+        echo "____$impl OK"
     fi
 }
 
-cat implementations | while read $impl; do update_implementations $impl; done
+cat implementations | while read impl; do update_implementation $impl; done
 
-echo "pushing changes"
+echo "____pushing changes"
 git push
